@@ -25,9 +25,14 @@ div#map {
 }
 
 div#panel {
-  height: 100%; 
+  position: absolute;
+  bottom: 0px;
+  height: calc(100% - 50px); /* calc is used to substract the height of the navbar */
+  width: 300px;
   background-color: #999;
+  opacity: 0.97;
   transition: 0.8s;
+  z-index: 1;
 }
 
 

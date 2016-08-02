@@ -11,31 +11,33 @@
   <link rel="stylesheet" href="css/style.css" type="text/css" />
  </head>
  <body> 
-
-  <nav class="navbar navbar-fixed-top" role="navigation">
-   <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse"></button>
-    <a class="navbar-brand" href="#">TutorialsPoint</a>
-   </div>
-   <div class="collapse navbar-collapse" id="example-navbar-collapse">
-    <ul class="nav navbar-nav">
-     <li><a href="#" >menu1</a></li>
-     <li><a href="#" >menu1</a></li>
-     <li><a href="#" >menu1</a></li>
-    </ul>
-   </div>
-  </nav> 
+ 
+  <div id="navbarContainer">
+   <nav class="navbar navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse"></button>
+     <a class="navbar-brand" href="#">TutorialsPoint</a>
+    </div>
+    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+     <ul class="nav navbar-nav">
+      <li><a href="#" >menu1</a></li>
+      <li><a href="#" >menu1</a></li>
+      <li><a href="#" >menu1</a></li>
+     </ul>
+    </div>
+   </nav>
+  </div> 
    
   <div class="container bodyContainer">
    <div class="row mapContainer">  
-    <div class="hidden-xs col-sm-4 col-md3 col-lg3" id="panel" >
+    <div class="hidden-xs " id="panel" >
     <!--div class="hidden-xs col-sm-4 col-md3 col-lg3 collapse in" id="panel" >
      <!--button type="button" class="btn" data-toggle="collapse" data-target="#panel"><</button-->
      <button type="button" class="btn" onclick="collapsePanel();"><</button>
      
      <div>panel</div>
     </div>
-    <div class="col-xs-12 col-sm-8 col-md9 col-lg9" id="map" ></div>
+    <div class="col-xs-12" id="map" ></div>
     
    </div>
   </div>
