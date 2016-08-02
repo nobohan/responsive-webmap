@@ -28,13 +28,6 @@ div#panel {
   height: 100%; 
   background-color: #999;
   transition: 0.8s;
-  
 }
 
-
-div#panel:active {
-  background-color: #fff;
-  transition: 0.8s;
-  left:
-}
 

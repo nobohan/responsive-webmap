@@ -43,9 +43,22 @@ setLayer('met');
 $('.ol-scale-line').addClass('hidden-xs')
 $('.ol-attribution').addClass('hidden-xs')
 
+
 // Hide/show panel
-collapsePanel = function(){
-   alert();  
-  //$('div#panel')
+var showPanel = true;
+var collapsePanel = function(){
+	if(showPanel == true){
+	  $('div#panel').css('background-color','#ff0000');
+	  showPanel =! showPanel;
+	  }
+   else{
+	  $('div#panel').css('background-color',' #999');
+	  showPanel =! showPanel;
+	  }
 }
+
+
+
+
+
 
