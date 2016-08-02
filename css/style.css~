@@ -1,0 +1,40 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  padding-top: 50px;   /* the size of the padding-top need to be the one of the navbar */
+}
+
+.bodyContainer {
+	height:100%;
+	width: auto;  /* need to overwrite the width set by bootstrap */
+}
+
+.mapContainer {
+  height: 100%; 
+}
+
+div#map {
+  height: 100%;   /* to specify the full height for the map, works only if height is set in body and parent divs */ 
+  background-color: #b5d0d0; 
+  padding-right: 0px;   /* need to overwrite the padding-right and padding-left set by bootstrap */
+  padding-left: 0px;
+}
+
+div#panel {
+  height: 100%; 
+  background-color: #999;
+  transition: 0.8s;
+  width: 300px;
+}
+
+
+div#panel:active {
+  background-color: #fff;
+  transition: 0.8s;
+  left:
+}
+
