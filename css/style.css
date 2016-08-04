@@ -1,3 +1,5 @@
+/* body */
+
 html, body {
   padding: 0;
   margin: 0;
@@ -6,6 +8,12 @@ html, body {
 
 body {
   padding-top: 50px;   /* the size of the padding-top need to be the one of the navbar */
+}
+
+/* Main containers */
+.header{
+   -webkit-box-shadow: 0 5px 15px rgba(1,1,1,.7);  /* makes a grey shadow below the navbar */
+   box-shadow: 0 5px 15px rgba(1,1,1,.7); 
 }
 
 .bodyContainer {
@@ -18,7 +26,7 @@ body {
 }
 
 div#map {
-  height: 100%;   /* to specify the full height for the map, works only if height is set in body and parent divs */ 
+  height: 100%;         /* to specify the full height for the map, works only if height is set in body and parent divs */ 
   background-color: #b5d0d0; 
   padding-right: 0px;   /* need to overwrite the padding-right and padding-left set by bootstrap */
   padding-left: 0px;
@@ -26,13 +34,66 @@ div#map {
 
 div#panel {
   position: absolute;
-  bottom: 0px;
+  top: 50px;
+  padding-top: 8px;          /* needed to move the content below the gray shadow specified in the header */
   height: calc(100% - 50px); /* calc is used to substract the height of the navbar */
   width: 300px;
-  background-color: #999;
-  opacity: 0.97;
-  transition: 0.8s;
+  background-color: #fafafa;
+  opacity: 0.92;
+  -webkit-transition: width 0.6s;
+  transition: width 0.6s;
   z-index: 1;
 }
 
+div#collapseBtn {
+  float:right;
+  margin-top: 3px;
+  margin-right: 3px;
+  font-weight: bold;
+}
 
+div#collapseBtn button {
+  font-weight: bold;
+}
+
+div#panelContent {
+  display: flex;     /* not sure if it the best item for display */
+  opacity: 1;
+  height: inherit;   /* better than height: 100% */
+  width: 100%;
+  overflow: auto;
+  -webkit-transition: opacity 0.6s;
+  transition: opacity 0.6s;
+}
+
+/* OpenLayers controls */
+
+.ol-zoom {
+   right: 8px;
+   top: 12px;
+   left: auto;      /* needed to avoid the background-color of the ol zoom control spanning from the left side of the screen */
+}
+
+@media all and (max-width: 768px) {
+  .ol-zoom {
+     top: initial;   /* needed to clear the top property specified by OpenLayers */
+     right: 8px;
+     bottom: 6px;
+     left: auto;   /* needed to avoid the background-color of the ol zoom control spanning from the left side of the screen */
+   }
+}
+
+.ol-scale-line {
+	right: 40px;
+	left: auto;
+}
+
+
+/* Hamburger button */
+.header button span{
+   background-color: #23527c;
+}
+
+.navbar-collapse {
+	background-color: #fff;
+}
