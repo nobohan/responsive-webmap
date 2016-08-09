@@ -20,15 +20,22 @@ This documentation is merely a list of CSS tricks and different options for cust
 * use the class navbar-fixed-top for this map and set height=100% to most of the tag. The general layout using bootstrap was inspired from <http://esri.github.io/bootstrap-map-js/demo/jquery/maps.html>
 
 ### Collapsible panel:
-* the div panel was set a `position:absolute`, starting at `bottom: 0px`.
+* The div panel was set a `position:absolute`, starting at `bottom: 0px`.
 * Alternatively, use `top: 50px`. 
-* The height of the div panel was calculated as  `calc(100% - 50px)`, where 50px is the height of the navbar. I did not reach to keep the `height : 100%`. I tried to add `padding-top: 50px` but this does not change the height of the panel, only the position of the panel content. 
-* The collapsible behaviour is made by changing the width of the div panel from `300px` to `30px` OR the height from `calc(100% - 50px)` to `30px`.
-* The collapsible behaviour is triggered by the `collapsePanel()` function, using jquery functions.
-* The panel content (`div#panelContent`) is hidden when the panel is collapsed through the css property opacity using a transition effect, because the transition effect cannot work with the css property display. 
 * Therefore, 2 OPTIONS:
  * collapsible by height: in map.js: `$('div#panel').css('height','30px');`
- * collapsible by width: `$('div#panel').css('width','30px');`
+ * collapsible by width: `$('div#panel').css('width','30px');
+
+* The height of the div panel was calculated as  `calc(100% - 50px)`, where 50px is the height of the navbar. I did not reach to keep the `height : 100%`. I tried to add `padding-top: 50px` but this does not change the height of the panel, only the position of the panel content. 
+
+* The collapsible behaviour is triggered by the `collapsePanel()` function, using jquery functions.
+* The collapsible behaviour is made by changing the width of the div panel from `300px` to `30px` OR the height from `calc(100% - 50px)` to `30px`.
+* The panel content (`div#panelContent`) is hidden when the panel is collapsed through the css property `opacity` using a transition effect, because the transition effect cannot work with the css property `display`. 
+
+* For mobile view, the `#collapseBtn` is hidden and is replaced by another button: `#collapseBtnXs`.
+* For mobile view, another function is used: `collapsePanelXs()`
+`
+
 
 ### Positionning of openlayers controls: 
 * put the ol-zoom at the bottom-right of the map:
