@@ -7,6 +7,7 @@
   <meta name="robots" content="index,follow" /> 
   <meta name="author" content="Julien" />
   <link rel="stylesheet" href="lib/bootstrap-3.3.6-dist/css/bootstrap.css"><!-- debug css version-->
+  <link rel="stylesheet" href="lib/jquery-ui-1.12.0/jquery-ui.css">
   <link rel="stylesheet" href="lib/ol3.8.2/ol.css" type="text/css" />
   <link rel="stylesheet" href="css/style.css" type="text/css" />
  </head>
@@ -34,7 +35,7 @@
    
   <div class="container bodyContainer">
    <div class="row mapContainer"> 
-    
+   
     <!-- panel --> 
     <div id="collapseBtnXs" class="visible-xs">   
       <button type="button" class="btn"  onclick="collapsePanelXs();">+</button>
@@ -46,7 +47,44 @@
       <button type="button" class="btn btn-sm hidden-xs"  onclick="collapsePanel();"><</button>
      </div>
      
-     <div id="panelContent">panel content</div>
+     <div id="panelContent"> 
+      <form role="form" id="generalForm">
+      <label>Cartographie</label>
+       <div class="form-group">
+        <label for="variable">Variable</label>
+        <select class="form-control" id="formVariable">
+          <option value="temp">Température</option>
+          <option value="prec">Précipitation</option>
+          <option value="et0">ETO</option>
+          <option value="ndvi">NDVI</option>
+        </select>
+        <label for="stat">Statistique</label>
+        <select class="form-control" id="formStat">
+          <option value="average">Moyenne</option>
+          <option value="max">Maximum</option>
+          <option value="min">Minimum</option>
+          <option value="cumul">Cumul</option>
+        </select>
+        <label for="spatial">Découpage spatial</label>
+        <select class="form-control" id="formSpatial">
+          <option value="grid">Grille</option>
+          <option value="level3">Communes</option>
+          <option value="level2">Régions agricoles</option>
+          <option value="level1">Pays</option>
+        </select>
+        <label for="date">Date</label>
+        
+        <input class="form-control formDate" type="text" id="formDate">
+
+        <br>
+        <div class="text-center">
+         <button type="button" class="btn btn-sm" onclick="updateLayer();">Actualiser la carte</button> 
+         <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#showData" onclick="updateData()">Montrer les données</button> 
+        </div>       
+       </div>      
+      </form>
+      
+     </div>
     </div>
     
     <!-- map -->
@@ -54,9 +92,34 @@
     
    </div>
   </div>
+
+
+
+  <!-- Modal window for data displaying -->
+  <div class="modal fade" id="showData" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
   
   <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
   <script type="text/javascript" src="lib/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+  <script type="text/javascript" src="lib/jquery-ui-1.12.0/jquery-ui.js"></script>
   <script type="text/javascript" src="lib/ol3.8.2/ol-debug.js"></script> 
   <script type="text/javascript" src="map.js"></script>
   
