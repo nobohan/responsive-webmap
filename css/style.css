@@ -45,6 +45,23 @@ div#panel {
   z-index: 1;
 }
 
+@media all and (max-width: 768px) {
+  div#panel {
+  	 width: 0px;
+  }
+}
+
+div#collapseBtnXs{
+   position: absolute;
+   bottom: 10px;
+   left: 10px;
+   z-index:2;
+}
+
+div#collapseBtnXs button {
+  font-weight: bold;
+}
+
 div#collapseBtn {
   float:right;
   margin-top: 3px;
