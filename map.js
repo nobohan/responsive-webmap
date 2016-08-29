@@ -26,7 +26,7 @@ var updateLayer = function(){
    // TODO: check if the layer exist!
    //olmap.removeLayer()
    showLayer('geom from meteo'+yyyy+mm+dd+'_grid', 'postgis');
-   
+
    // TODO: show legend   
 
 }
@@ -66,14 +66,42 @@ olmap.addLayer(osmLayer);
 
 // Add layers functions
 
-var showLayer = function(layername, format){
-	layer = new ol.layer.Tile({
-	source: new ol.source.TileWMS({
-	    url: 'http://localhost/cgi-bin/mapserv?map=/var/www/CGMS/proto/meteo_tx_'+format+'.map&map&data='+layername,
-	    params: {LAYERS: 'meteo'} 
-	    })
+// Progress when the source is loading
+var showProgress = function (source) {
+   source.on('tileloadstart', function() {
+      $('.mapContainer').addClass('loading');
+       });
+   source.on('tileloadend', function() {
+      $('.mapContainer').removeClass('loading');
+      //$('div#map').removeClass('loading');
+      //$('div#panel').removeClass('loading'); 
+      //$('div#truc').removeClass('loading');   
+	   });
+	source.on('tileloaderror', function() {
+      $('.mapContainer').removeClass('loading');  
+      //$('div#map').removeClass('loading');
+      //$('div#panel').removeClass('loading'); 
+      //$('div#truc').removeClass('loading');                  
+	   });
+};
+
+// Set the source
+var setSource = function (layername, format) {
+   source = new ol.source.TileWMS({
+	   url: 'http://localhost/cgi-bin/mapserv?map=/var/www/CGMS/proto/meteo_tx_'+format+'.map&map&data='+layername,
+	   params: {LAYERS: 'meteo'}
 	})
+	return source;
+};
+
+// Show the layer
+var showLayer = function(layername, format){
+   layer = new ol.layer.Tile({
+   	source: setSource(layername,format) 
+	});
+	showProgress(source);
 	olmap.addLayer(layer);
+	 
 };
 
 var showLayerPostGISsimple = function(layername){

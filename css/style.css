@@ -89,7 +89,6 @@ div#panelContent form {
   padding-left: 15px;
 }
 
-
 /* OpenLayers controls */
 
 .ol-zoom {
@@ -121,4 +120,14 @@ div#panelContent form {
 .navbar-collapse {
 	background-color: #fff;
 }
+
+/* Loading cursor */
+body.loading *{
+	cursor:progress !important;
+}
+
+.loading *{
+	cursor:progress !important;
+}
+
 
