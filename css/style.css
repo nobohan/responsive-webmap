@@ -130,4 +130,11 @@ body.loading *{
 	cursor:progress !important;
 }
 
+/* Modal window for tables of data */
 
+.modal-body tr{
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th  {
+   background-color: #ddd; 
+ }
