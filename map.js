@@ -38,6 +38,7 @@ var getUserInputs = function () {
 // updateLayer button - show layer
 var updateLayer = function(){
    var inputs = getUserInputs();
+   
    // TODO: remove previous layers olmap.removeLayer()
    
    showLayer('geom from meteo'+inputs.yyyy+inputs.mm+inputs.dd+'_grid', 'postgis');
@@ -51,6 +52,9 @@ var updateLayer = function(){
 var showData = function(){
    dataset=[];	
   
+	// Remove previous elements, if any
+   d3.select("#modal-table").selectAll('table').remove();   	  
+  
    // Get user inputs
    var inputs = getUserInputs();
    
@@ -62,7 +66,7 @@ var showData = function(){
 	    
 	   // Update the modal content
 	   // Add modal title:
-	   $('.modal-title').replaceWith(inputs.variable + ' data for ' + inputs.yyyy + "/" + inputs.mm + "/" + inputs.dd);
+	   $('.modal-title').replaceWith(inputs.variable + ' data for ' + inputs.dd + "/" + inputs.mm + "/" + inputs.yyyy);
 	    
 	   // Select table 
 	   var table = d3.select("#modal-table"),
@@ -76,6 +80,7 @@ var showData = function(){
 	        .enter()
 	        .append("th")
 	            .text(function(column) { return column; });
+	   thead.exit().remove();
 	            
 	   // append the data
 	   table.selectAll("tr").data(dataset).enter().append("tr")
@@ -90,6 +95,9 @@ var showData = function(){
 // show graph
 var showGraph = function () {
 	
+	// Remove previous elements, if any
+   d3.select("#modal-graph").selectAll("svg").remove();   	
+	
    // Get user inputs
    var inputs = getUserInputs();
    
@@ -97,21 +105,24 @@ var showGraph = function () {
    d3.csv('tables/meteo'+inputs.yyyy+inputs.mm+inputs.dd+'_table.csv', function(csvdata) {
 	   dataset = csvdata.map(function(d) { return [ +d["TX"] ]; })  
       
-      // Build graph
+      // Add modal title:
+	   $('.modal-title').replaceWith('Histogram of ' + inputs.variable + ' for ' + inputs.dd + "/" + inputs.mm + "/" + inputs.yyyy);
+	          
+      // Build graph with D3
 
 		var formatCount = d3.format(",.0f");
 		
 		var margin = {top: 10, right: 30, bottom: 30, left: 30},
-		    width = 960 - margin.left - margin.right,
-		    height = 500 - margin.top - margin.bottom;
+		    width = 600 - margin.left - margin.right,
+		    height = 400 - margin.top - margin.bottom;
 		
 		var x = d3.scaleLinear()
-		    .domain([0, 50])
+		    .domain([10, 35])        // set the x range here
 		    .rangeRound([0, width]);
 		
 		var bins = d3.histogram()
 		    .domain(x.domain())
-		    .thresholds(x.ticks(20))
+		    .thresholds(x.ticks(40))   // set the number of bins here
 		    (dataset);
 		
 		var y = d3.scaleLinear()
@@ -134,13 +145,6 @@ var showGraph = function () {
 		    .attr("x", 1)
 		    .attr("width", x(bins[0].x1) - x(bins[0].x0) - 1)
 		    .attr("height", function(d) { return height - y(d.length); });
-		
-		bar.append("text")
-		    .attr("dy", ".75em")
-		    .attr("y", 6)
-		    .attr("x", (x(bins[0].x1) - x(bins[0].x0)) / 2)
-		    .attr("text-anchor", "middle")
-		    .text(function(d) { return formatCount(d.length); });
 		
 		hist.append("g")
 		    .attr("class", "axis axis--x")

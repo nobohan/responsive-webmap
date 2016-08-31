@@ -138,3 +138,14 @@ body.loading *{
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th  {
    background-color: #ddd; 
  }
+ 
+/* Graphs */
+/* for histogram */
+.bar rect {
+  fill: steelblue;
+}
+
+.bar text {
+  fill: #fff;
+  font: 10px sans-serif;
+}
