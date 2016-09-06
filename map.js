@@ -22,6 +22,7 @@ var getUserInputs = function () {
    var yyyy = date.getFullYear();
    //console.log(variable, stat, spatial, yyyy, mm, dd);
    // TO DO: messages when fields are empty
+   // TO DO: return units of the variable according to the variable. eg: if variable = temp, unit="°c". 
    return { 
        variable: variable,
        stat: stat,
@@ -80,12 +81,20 @@ var showData = function(){
    // Get data using user inputs
 	d3.csv('tables/meteo'+inputs.yyyy+inputs.mm+inputs.dd+'_table.csv', function(csvdata) {
 	   dataset = csvdata.map(function(d) { return [ +d["GRID_NO"], +d["TX"] ]; })  
+      
       // Get table header
       dataheader = ['GRID', inputs.variable];	   // TO DO: load it from csv (or not)
-	    
+     
+      // format of the data 
+      var formatDataset = [];	   
+	   var dataFormat = d3.format(",.1f");
+      for (var i = 0, len = dataset.length; i < len; i++) {
+      	formatDataset.push([dataset[i][0],dataFormat(dataset[i][1])])
+      }	   
+	   
 	   // Update the modal content
 	   // Add modal title:
-	   $('.modal-title').replaceWith(inputs.variable + ' data for ' + inputs.dd + "/" + inputs.mm + "/" + inputs.yyyy);
+	   $('#tableTitle').replaceWith(inputs.variable + ' data for ' + inputs.dd + "/" + inputs.mm + "/" + inputs.yyyy);
 	    
 	   // Select table 
 	   var table = d3.select("#modal-table"),
@@ -102,7 +111,7 @@ var showData = function(){
 	   thead.exit().remove();
 	            
 	   // append the data
-	   table.selectAll("tr").data(dataset).enter().append("tr")
+	   table.selectAll("tr").data(formatDataset).enter().append("tr")
            .selectAll("td")
               .data(function(d) { return d; }).enter()
               .append("td")
@@ -125,11 +134,11 @@ var showGraph = function () {
 	   dataset = csvdata.map(function(d) { return [ +d["TX"] ]; })  
       
       // Add modal title:
-	   $('.modal-title').replaceWith('Histogram of ' + inputs.variable + ' for ' + inputs.dd + "/" + inputs.mm + "/" + inputs.yyyy);
+	   $('#graphTitle').replaceWith('Histogram of ' + inputs.variable + ' for ' + inputs.dd + "/" + inputs.mm + "/" + inputs.yyyy);
 	          
       // Build graph with D3
 
-		var formatCount = d3.format(",.0f");
+		//var formatCount = d3.format(",.0f");
 		
       if ($('.modal').width() > 800 ) {	
       	graphWidth = 600;
@@ -176,6 +185,12 @@ var showGraph = function () {
 		    .attr("class", "axis axis--x")
 		    .attr("transform", "translate(0," + height + ")")
 		    .call(d3.axisBottom(x));  
+		    
+		hist.append("text")      // text label for the x axis
+        .attr("x", width / 2 )
+        .attr("y", height + margin.bottom )
+        .style("text-anchor", "middle")
+        .text(inputs.variable);
    })
 }
 	
