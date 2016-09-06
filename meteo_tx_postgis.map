@@ -1,0 +1,85 @@
+# Map file trial for displaying raster with Mapserver, created on July 2016, Julien Minet
+# http://localhost/cgi-bin/mapserv?map=/var/www/CGMS/proto/meteo_tx_postgis.map&request=GetMap&service=WMS&layer=meteo&mode=map
+
+# Option with request in %
+# http://localhost/cgi-bin/mapserv?map=/var/www/CGMS/proto/meteo_tx_postgis.map&request=GetMap&service=WMS&layer=meteo&mode=map&data=geom from meteo20130608_grid
+# Get legend
+# http://localhost/cgi-bin/mapserv?map=/var/www/CGMS/proto/meteo_tx_postgis.map&request=GetLegendGraphic&service=WMS&version=1.1.1&layer=meteo&data=geom from meteo20130608_grid
+
+
+MAP
+  IMAGETYPE      png
+  SIZE           800 400
+  #EXTENT	      22120.7 21153.3 295156.83 244018.78  # extent in LB72
+  EXTENT         287478.58 6364859.46 713911.15 6712817.79 
+
+  PROJECTION
+    "init=epsg:3857"		
+  END
+
+  WEB
+    METADATA
+		"wms_title"           	"WMS_test"
+		"wms_srs"             	"EPSG:3857"
+		"wms_onlineresource"  	"http://localhost/cgi-bin/mapserv?map=/var/www/CGMS/proto/meteo_tx_postgis.map&request=GetMap&service=WMS"
+		"wms_format" 		      "image/png"
+		"wms_enable_request"    "GetMap"
+    END
+  END
+  
+  LAYER # Raster layer
+    NAME         "meteo"
+    VALIDATION
+      'data'      '.*' # match everything
+    END
+    CONNECTIONTYPE postgis                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+    CONNECTION "user=julien password=julien64 dbname=cgms host=localhost port=5432"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+    #DATA "geom from meteo20130608_grid" 
+    DATA         "%data%"
+    PROCESSING   "CLOSE_CONNECTION=DEFER"
+    STATUS       ON
+    TYPE         POLYGON
+    METADATA
+      "wms_title"    "meteo" 
+    END
+    PROJECTION
+      "init=epsg:31370"   # Put the EPSG code of the coordinate system of the raster data!
+    END
+
+    CLASS
+      EXPRESSION ([tx] >= 14 AND [tx] < 18)
+        STYLE
+          COLORRANGE 35 123 177  141 191 132
+          DATARANGE  14  18
+          RANGEITEM "tx"
+        END
+      END
+    CLASS
+      EXPRESSION ([tx] >= 18 AND [tx] < 22)
+        STYLE
+          COLORRANGE   141 191 132  221 220 154 
+          DATARANGE  18  22
+          RANGEITEM "tx"
+        END
+      END
+    CLASS
+      EXPRESSION ([tx] >= 22 AND [tx] < 24)
+        STYLE
+          COLORRANGE   221 220 154  236 155 78 
+          DATARANGE  22  24
+          RANGEITEM "tx"
+        END
+      END
+    CLASS
+      NAME '24 < Température < 30'
+      EXPRESSION ([tx] >= 24 AND [tx] <= 30)
+        STYLE
+          COLORRANGE   236 155 78   210 20 22
+          DATARANGE  24  30
+          RANGEITEM "tx"
+        END
+      END
+    END
+  END
+  
+END 

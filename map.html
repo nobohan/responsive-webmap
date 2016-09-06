@@ -41,13 +41,14 @@
       <button type="button" class="btn"  onclick="collapsePanelXs();">+</button>
     </div>
        
-    <div id="panel" >
+    <div  id="panel" >
       
-     <div id="collapseBtn" >     
-      <button type="button" class="btn btn-sm hidden-xs"  onclick="collapsePanel();"><</button>
+     <div id="collapseBtn" class="hidden-xs" >     
+      <button type="button" class="btn btn-sm"  onclick="collapsePanel();"><</button>
      </div>
      
-     <div id="panelContent"> 
+     <div class="container-fluid" id="panelContent"> 
+      <div>
       <form role="form" id="generalForm">
       <label>Cartographie</label>
        <div class="form-group">
@@ -77,13 +78,20 @@
         <input class="form-control formDate" type="text" id="formDate">
 
         <br>
-        <div class="text-center">
+        <div class="text-center" id="panelButtons">
          <button type="button" class="btn btn-sm" onclick="updateLayer();">Actualiser la carte</button> 
          <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#showData" onclick="showData()">Montrer les données</button> 
          <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#showGraph" onclick="showGraph()">Montrer un graphique</button> 
         </div>       
        </div>      
       </form>
+      </div>
+      
+      <div id="legend" >
+       <button type="button" class="close" aria-hidden="true" onclick="hideLegend()">&times;</button>
+       <p>Légende</p>
+       <img id="legendImg" class="text-center" src="http://localhost/cgi-bin/mapserv?map=/var/www/CGMS/proto/meteo_tx_postgis_legend.map&request=GetLegendGraphic&service=WMS&version=1.1.1&transparent=true&format=image%2Fpng&layer=meteo&data=geom%20from%20meteo20130608_grid">
+      </div>
       
      </div>
     </div>

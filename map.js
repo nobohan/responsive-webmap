@@ -1,6 +1,8 @@
 // OpenLayers 3 - Test with mapserver for B-CGMS - Julien Minet - July 2016. 
 
 
+var mapserv = "http://localhost/cgi-bin/mapserv?";
+
 // 1) Forms - data functions
 
 // Initialize the date pickers
@@ -30,7 +32,6 @@ var getUserInputs = function () {
    }
 }
 
-
 // getData function (if needed?)
 // TODO: select data from database, with a SQL command, instead of loading csv with D3
 
@@ -40,11 +41,29 @@ var updateLayer = function(){
    var inputs = getUserInputs();
    
    // TODO: remove previous layers olmap.removeLayer()
-   
+   // TODO: message when layer does not exist
    showLayer('geom from meteo'+inputs.yyyy+inputs.mm+inputs.dd+'_grid', 'postgis');
 
-   // TODO: show legend   
+   // show legend   
+   showLegend([inputs.yyyy+inputs.mm+inputs.dd])
+}
 
+var showLegend = function(date){
+	// Build the legend query for mapserver (imgsrc)
+   var mapfile = "map=/var/www/CGMS/proto/meteo_tx_postgis_legend.map&";
+   var request = "request=GetLegendGraphic&service=WMS&version=1.1.1&transparent=true&format=image%2Fpng&"
+   var layer = "layer=meteo&";
+   var datadate = "data=geom%20from%20meteo" + date + "_grid";
+   var imgsrc =  mapserv + mapfile + request + layer + datadate;
+   $("#legendImg").attr("src",imgsrc)
+   
+   // Show the legend
+   $('#legend').css('opacity','1')
+   //$('#legend').addClass('in',1000)
+}
+
+var hideLegend = function(){
+   $('#legend').css('opacity','0')
 }
 
 // showData button - show table
@@ -53,7 +72,7 @@ var showData = function(){
    dataset=[];	
   
 	// Remove previous elements, if any
-   d3.select("#modal-table").selectAll('table').remove();   	  
+   d3.select("#modal-table").selectAll('thead').remove();   	  
   
    // Get user inputs
    var inputs = getUserInputs();
@@ -112,8 +131,15 @@ var showGraph = function () {
 
 		var formatCount = d3.format(",.0f");
 		
+      if ($('.modal').width() > 800 ) {	
+      	graphWidth = 600;
+      	}
+      else {
+      	graphWidth = $('.modal').width()*0.9;
+      	}
+		
 		var margin = {top: 10, right: 30, bottom: 30, left: 30},
-		    width = 600 - margin.left - margin.right,
+		    width = graphWidth - margin.left - margin.right,
 		    height = 400 - margin.top - margin.bottom;
 		
 		var x = d3.scaleLinear()
@@ -193,7 +219,7 @@ var showProgress = function (source) {
 // Set the source
 var setSource = function (layername, format) {
    source = new ol.source.TileWMS({
-	   url: 'http://localhost/cgi-bin/mapserv?map=/var/www/CGMS/proto/meteo_tx_'+format+'.map&map&data='+layername,
+	   url: mapserv + 'map=/var/www/CGMS/proto/meteo_tx_' + format + '.map&map&data=' + layername,
 	   params: {LAYERS: 'meteo'}
 	})
 	return source;

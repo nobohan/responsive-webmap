@@ -45,12 +45,6 @@ div#panel {
   z-index: 1;
 }
 
-@media all and (max-width: 768px) {
-  div#panel {
-  	 width: 0px;
-  }
-}
-
 div#collapseBtnXs{
    position: absolute;
    bottom: 10px;
@@ -74,7 +68,6 @@ div#collapseBtn button {
 }
 
 div#panelContent {
-  display: flex;     /* not sure if it the best item for display */
   opacity: 1;
   height: inherit;   /* better than height: 100% */
   width: 100%;
@@ -82,11 +75,29 @@ div#panelContent {
   -webkit-transition: opacity 0.6s;
   transition: opacity 0.6s;
 }
+  
+div#panelButtons button{
+  margin-top: 4px;
+}
 
+div#legend {
+  margin-top: 40px;
+  opacity: 0;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+}
 
-/* forms */
-div#panelContent form {
-  padding-left: 15px;
+div#legend p{
+  font-weight: bold;
+}
+
+@media all and (max-width: 768px) {
+  div#panel {
+  	 width: 0px;
+  	 }
+  div#panelContent{
+  	 opacity: 0;
+  }
 }
 
 /* OpenLayers controls */
