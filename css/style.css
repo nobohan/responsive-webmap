@@ -25,11 +25,47 @@ body {
   height: 100%; 
 }
 
+
+/* navbar custom properties */
+.navbar-nav>li, .navbar-nav {
+  float: left !important;       /* to remove the default behavior of bootstrap of setting the menu in two lines in mobile view */
+}
+
+.navbar-nav {
+  margin-left: auto;
+  margin-right: 4px;
+}
+
+@media all and (max-width: 768px) {
+	.navbar-nav {
+     margin-top: 5px;
+     margin-bottom: -5px;
+   }
+}
+
+.navbar-right {
+  float: right !important;   /* to correct the float:left !important set in the navbar-nav>li above */
+}
+
+.nav-icon {
+  height: 20px;
+}
+
+/* Main panels */
+
 div#map {
   height: 100%;         /* to specify the full height for the map, works only if height is set in body and parent divs */ 
   background-color: #b5d0d0; 
   padding-right: 0px;   /* need to overwrite the padding-right and padding-left set by bootstrap */
   padding-left: 0px;
+}
+
+div#graph {
+  height: 100%;         /* to specify the full height for the map, works only if height is set in body and parent divs */ 
+  background-color: #ddd; 
+  padding-right: 0px;   /* need to overwrite the padding-right and padding-left set by bootstrap */
+  padding-left: 310px;  /* need to set the graph at the right of the panel by default */
+  padding-top: 40px;
 }
 
 div#panel {
@@ -98,6 +134,9 @@ div#legend p{
   div#panelContent{
   	 opacity: 0;
   }
+  div#graph{
+    padding-left: 10px;  
+  }
 }
 
 /* OpenLayers controls */
@@ -120,16 +159,6 @@ div#legend p{
 .ol-scale-line {
 	right: 40px;
 	left: auto;
-}
-
-
-/* Hamburger button */
-.header button span{
-   background-color: #23527c;
-}
-
-.navbar-collapse {
-	background-color: #fff;
 }
 
 /* Loading cursor */

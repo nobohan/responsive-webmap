@@ -15,20 +15,17 @@
    
    <!-- navigation bar -->
    <nav class="navbar navbar-fixed-top header" role="navigation">
-    <div class="navbar-header">
-     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-     </button>
-     <a class="navbar-brand" href="#">Agrometeo</a>
+    <div>
+     <ul class="nav navbar-nav navbar-left">
+      <li><a href="#">Agrometeo</a></li>
+     </ul>
     </div>
-    <div class="collapse navbar-collapse" id="navbar">
-     <ul class="nav navbar-nav">
-      <li><a href="#" >menu1</a></li>
-      <li><a href="#" >menu2</a></li>
-      <li><a href="#" >menu3</a></li>
+    <div>
+     <ul class="nav navbar-nav navbar-right">
+      <li><a class="hidden-xs" onclick="cgms.showMapPanel();" >Carte</a></li>
+      <li><a class="hidden-xs" onclick="cgms.showGraphPanel();">Graphique</a></li>
+      <li><a class="visible-xs" onclick="cgms.showMapPanel();" title="Carte"><img class="nav-icon" src="img/map_icon.png" alt="Map"></a></li>
+      <li><a class="visible-xs" onclick="cgms.showGraphPanel();" title="Graphique"><img class="nav-icon" src="img/graph_icon.png" alt="Graph"></a></li>
      </ul>
     </div>
    </nav>
@@ -38,13 +35,13 @@
    
     <!-- panel --> 
     <div id="collapseBtnXs" class="visible-xs">   
-      <button type="button" class="btn"  onclick="collapsePanelXs();">+</button>
+      <button type="button" class="btn"  onclick="cgms.collapsePanelXs();">+</button>
     </div>
        
     <div  id="panel" >
       
      <div id="collapseBtn" class="hidden-xs" >     
-      <button type="button" class="btn btn-sm"  onclick="collapsePanel();"><</button>
+      <button type="button" class="btn btn-sm"  onclick="cgms.collapsePanel();"><</button>
      </div>
      
      <div class="container-fluid" id="panelContent"> 
@@ -79,16 +76,15 @@
 
         <br>
         <div class="text-center" id="panelButtons">
-         <button type="button" class="btn btn-sm" onclick="updateLayer();">Actualiser la carte</button> 
-         <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#showData" onclick="showData()">Montrer les données</button> 
-         <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#showGraph" onclick="showGraph()">Montrer un graphique</button> 
+         <button type="button" class="btn btn-sm" onclick="cgms.update();">Actualiser</button> 
+         <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#showData" onclick="cgms.showData()">Montrer les données</button> 
         </div>       
        </div>      
       </form>
       </div>
       
       <div id="legend" >
-       <button type="button" class="close" aria-hidden="true" onclick="hideLegend()">&times;</button>
+       <button type="button" class="close" aria-hidden="true" onclick="cgms.hideLegend()">&times;</button>
        <p>Légende</p>
        <img id="legendImg" class="text-center" src="http://localhost/cgi-bin/mapserv?map=/var/www/CGMS/proto/meteo_tx_postgis_legend.map&request=GetLegendGraphic&service=WMS&version=1.1.1&transparent=true&format=image%2Fpng&layer=meteo&data=geom%20from%20meteo20130608_grid">
       </div>
@@ -98,6 +94,20 @@
     
     <!-- map -->
     <div class="col-xs-12" id="map" ></div>
+    
+    <!-- graphs -->
+    <div class="col-xs-12" id="graph" >   
+     <div>
+        <div class="graph-header">
+         <h4 class="graph-title" id="graphTitle"></h4>
+        </div>
+        <div class="graph-body">
+         <div id="graph-div"></div>
+        </div>
+        <div class="graph-footer">
+        </div>
+     </div>    
+    </div>
     
    </div>
   </div>
@@ -122,12 +132,13 @@
       
     </div>
   </div>
-
-  <!-- Modal window for graphs -->
+ 
+  <!----
+  <!-- Modal window for graphs 
   <div class="modal fade" id="showGraph" role="dialog">
     <div class="modal-dialog">
   
-      <!-- Modal content-->
+      <!-- Modal content
       <div class="modal-content">
         <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -143,7 +154,7 @@
       
     </div>
   </div>
-  
+  -->
   
   <script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
   <script type="text/javascript" src="lib/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
